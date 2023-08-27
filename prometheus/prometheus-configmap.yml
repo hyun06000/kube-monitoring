@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-configmap
+  namespace: monitoring
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval:     5s
+      evaluation_interval: 5s
+    scrape_configs:
+      - job_name: 'prometheus'
+        static_configs:
+        - targets: ['localhost:9090']
+      - job_name: 'node'
+        static_configs:
+        - targets: ['192.168.0.3:9100']
+      - job_name: 'nvidia'
+        static_configs:
+        - targets: ['192.168.0.3:9400']
+      - job_name: 'docker'
+        static_configs:
+        - targets: ['192.168.0.3:9323']
+      - job_name: 'cadvisor'
+        static_configs:
+        - targets: ['192.168.0.3:8080']

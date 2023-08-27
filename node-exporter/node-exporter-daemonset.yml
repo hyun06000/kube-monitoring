@@ -1,0 +1,20 @@
+apiVersion: apps/v1           # DaemonSet을 쓰기 위한 API 버전
+kind: DaemonSet               # 리소스 종류
+metadata:                     # 리소스 메타데이터
+  name: example-daemonset     # DaemonSet의 이름
+  namespace: monitoring       # DaemonSet이 뜰 네임스페이스
+spec:
+  selector:                   # 이 DaemonSet이 관리할 파드 식별자
+    matchLabels:
+      app: monitoring-app     # 키 값 "app", 벨류 값"monitoring-app"
+  template:                   # 관리할 파드의 템플릿
+    metadata:                 # DaemonSet은 모든 노드를 관리하면서 이 템플릿에 해당하는 파드가 있는지 감시하고 생성함
+      labels:
+        app: monitoring-app   # 파드식 별자. 이걸 보고 데몬셋이 관리할지 말지 결정함
+    spec:                     # 파드 세부 스펙
+      containers:
+      - name: node-exporter
+        image: prom/node-exporter:latest
+        ports:
+            - name: exporter-port
+              containerPort: 9100
