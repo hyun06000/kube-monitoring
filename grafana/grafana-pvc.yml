@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: my-hostpath-pv
+  storageClassName: grafana-nfs-pv
