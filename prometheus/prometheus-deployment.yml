@@ -31,7 +31,8 @@ spec:
           mountPath: /etc/prometheus
       volumes:
       - name: prometheus-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: prometheus-nfs-pvc
       - name: prometheus-configmap
         configMap:
           name: prometheus-configmap
