@@ -4,9 +4,14 @@ metadata:
   name: kube-data
 spec:
   capacity:
-    storage: 10Gi
+    storage:
+      10Gi
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: /home/manager/monitoring/monitoring-data
-  storageClassName: my-hostpath-pv
+  storageClassName: 
+    nfs-pv
+  nfs:
+    server:
+      192.168.0.10
+    path:
+      "/home/manager/nfs/shared"
